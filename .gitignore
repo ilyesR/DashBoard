@@ -42,3 +42,6 @@ next-env.d.ts
 
 # review screenshots — regenerate with scripts/screenshot.mjs
 /.impeccable/review/
+
+# static export output
+/out/

@@ -1,17 +1,12 @@
+import { Suspense } from "react";
 import { ENTRIES } from "@/lib/data";
-import { CurrencySwitch, Ledger, type Flow } from "@/components/ledger/ledger";
+import { CurrencySwitch, Ledger } from "@/components/ledger/ledger";
+import { LedgerWithFlow } from "@/components/ledger/ledger-with-flow";
 import { PageHeader } from "@/components/ui";
 
 export const metadata = { title: "Transactions — Meridian" };
 
-export default async function TransactionsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ flow?: string }>;
-}) {
-  const { flow } = await searchParams;
-  const initialFlow: Flow = flow === "in" || flow === "out" ? flow : "all";
-
+export default function TransactionsPage() {
   return (
     <>
       <PageHeader
@@ -21,7 +16,9 @@ export default async function TransactionsPage({
         <CurrencySwitch />
       </PageHeader>
       <div className="p-4 sm:p-5 xl:p-7">
-        <Ledger entries={ENTRIES} initialFlow={initialFlow} />
+        <Suspense fallback={<Ledger entries={ENTRIES} />}>
+          <LedgerWithFlow />
+        </Suspense>
       </div>
     </>
   );

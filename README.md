@@ -13,7 +13,19 @@ the per-route `metadata` titles.
 npm run dev
 ```
 
-`npm run build` for a production build, `npm start` to serve it.
+`npm run build` produces a static export in `out/`. The app is exported rather
+than served by Node, so `npm start` does not apply — to preview the built output:
+
+```bash
+npx serve out
+```
+
+## Deployment
+
+Pushing to `main` builds the export and publishes it to GitHub Pages via
+[.github/workflows/deploy.yml](.github/workflows/deploy.yml). The site is served
+from a sub-path, so the workflow sets `NEXT_PUBLIC_BASE_PATH=/DashBoard`. Rename
+that value if the repository is ever renamed, or every asset will 404.
 
 ## What is real and what is not
 
